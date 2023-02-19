@@ -14,23 +14,24 @@ function imageMode(color){
     image3.src = `img/undraw_conceptual_idea_${color}.svg`;
 }
 
-function toggleDarkLightMode(isDark) {
-    nav.style.backgroundColor = isDark ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)';
-    textBox.style.backgroundColor = isDark ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
-    toggleIcon.children[0].textContent = isDark ? 'Dark Mode' : 'Light Mode';
-    isDark ? toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon') : toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
-    isDark ? imageMode(DARK_THEME) : imageMode(LIGHT_THEME);
+function toggleDarkLightMode(mode = 'dark') {
+    nav.style.backgroundColor = mode === 'dark' ? 'rgb(0 0 0 / 50%)' : 'rgb(255 255 255 / 50%)';
+    textBox.style.backgroundColor = mode === 'dark' ? 'rgb(255 255 255 / 50%)' : 'rgb(0 0 0 / 50%)';
+    toggleIcon.children[0].textContent = mode === 'dark' ? 'Dark Mode' : 'Light Mode';
+    mode === 'dark' ? toggleIcon.children[1].classList.replace('fa-sun', 'fa-moon') : toggleIcon.children[1].classList.replace('fa-moon', 'fa-sun');
+    mode === 'dark' ? imageMode(DARK_THEME) : imageMode(LIGHT_THEME);
 }
+
 
 function switchTheme(event){
     if (event.target.checked) {
         document.documentElement.setAttribute('data-theme', DARK_THEME);
         localStorage.setItem('theme', DARK_THEME);
-        toggleDarkLightMode(true);
+        toggleDarkLightMode('dark');
     } else {
         document.documentElement.setAttribute('data-theme', LIGHT_THEME)
         localStorage.setItem('theme', LIGHT_THEME);
-        toggleDarkLightMode(false);
+        toggleDarkLightMode('light');
     }       
 
 }
